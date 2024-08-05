@@ -38,7 +38,7 @@ export default function Home() {
                     Product
                 </h2>
                 <h4 className="text-xl">สินค้าของเรา</h4>
-                <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5'>
+                <div className='grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-5 p-5'>
                     {products && products.length > 0 ? (
                         products.map((product) => (
                             <Link href={`/products/${product._id}`} key={product._id}>
@@ -56,6 +56,7 @@ export default function Home() {
                                     <div className="p-4 bg-white">
                                         <h3 className="mb-2 text-lg font-bold text-gray-900">{product.name}</h3>
                                         <p className="text-gray-600">{product.description}</p>
+                                        <p className="text-gray-600">{product.price} $</p>
                                     </div>
                                 </Card>
                                 {/* <button onClick={() => deleteProduct(product._id)}>Delete</button>

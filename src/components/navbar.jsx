@@ -83,6 +83,7 @@ export default function NavbarComp() {
                             {isAuthorized && (
                                 <DropdownItem href="/admin/dashboard">Dashboard</DropdownItem>
                             )}
+                            <DropdownItem key="help_and_feedback">PayMent</DropdownItem>
                             <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
                             <DropdownItem key="logout" color="danger" onClick={() => signOut()}>
                                 Log Out

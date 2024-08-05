@@ -4,6 +4,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { Button, Card } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
+import Sidebar from "@/components/slidebar";
 
 export default function Dashboard() {
     const { data: session, status } = useSession();
@@ -58,27 +59,8 @@ export default function Dashboard() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="w-64 bg-gray-800 text-white flex flex-col">
-                <div className="p-4 text-center font-bold text-xl bg-gray-900">Zismail Shop</div>
-                <nav className="flex-1">
-                    <Link href="/dashboard">
-                        <div className="flex items-center p-4 text-white hover:bg-gray-700">
-                            Dashboard
-                        </div>
-                    </Link>
-                    <Link href="/products/create">
-                        <div className="flex items-center p-4 text-white hover:bg-gray-700">
-                            Create Post
-                        </div>
-                    </Link>
-                    <Link href="/admin/overview">
-                        <div className="flex items-center p-4 text-white hover:bg-gray-700">
-                            Overview
-                        </div>
-                    </Link>
-                    {/* เพิ่มเมนูอื่นๆ ที่ต้องการ */}
-                </nav>
-            </div>
+            <Sidebar />
+
             <main className="flex-1 p-6">
                 <Card className="max-w-4xl mx-auto p-6 shadow-lg bg-white">
                     <h2 className="text-3xl font-bold text-gray-900 text-center mb-4">
