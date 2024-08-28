@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Navbar,
     NavbarBrand,
@@ -16,6 +16,8 @@ import {
     Button
 } from "@nextui-org/react";
 import { useSession, signOut } from "next-auth/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 export default function NavbarComp() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,6 +28,7 @@ export default function NavbarComp() {
         { label: "Term & Condition", url: "/contents/about" },
         { label: "Docs", url: "/contents/docs" },
     ];
+
 
     // Helper function to check if user has admin or developer role
     const isAuthorized = session?.user?.role === "admin" || session?.user?.role === "developer";
@@ -63,6 +66,7 @@ export default function NavbarComp() {
 
             <NavbarContent as="div" justify="end">
                 {session ? (
+
                     <Dropdown placement="bottom-end">
                         <DropdownTrigger>
                             <Avatar
@@ -83,7 +87,8 @@ export default function NavbarComp() {
                             {isAuthorized && (
                                 <DropdownItem href="/admin/dashboard">Dashboard</DropdownItem>
                             )}
-                            <DropdownItem key="help_and_feedback">PayMent</DropdownItem>
+                            <DropdownItem href="/personal/cart">Cart</DropdownItem>
+                            <DropdownItem key="payment">Payment</DropdownItem>
                             <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
                             <DropdownItem key="logout" color="danger" onClick={() => signOut()}>
                                 Log Out

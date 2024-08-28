@@ -1,6 +1,5 @@
-// pages/products/[id].js
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -18,7 +17,7 @@ const ProductDetail = () => {
   const fetchProduct = async () => {
     const res = await fetch(`/api/products/${id}`);
     const data = await res.json();
-    setProduct(data.data);  // ตรวจสอบโครงสร้างของ JSON และใช้ data.data หรือ data ตามที่เหมาะสม
+    setProduct(data.data);
   };
 
   if (!product) return <div>Loading...</div>;
@@ -52,6 +51,12 @@ const ProductDetail = () => {
             <h2 className="mt-8 text-2xl font-bold">Education</h2>
             <p className="mt-3 text-xl">Price: {product.price}</p>
             <p className="mt-3 text-xl">description: {product.description}</p>
+            <button 
+              onClick={addToCart}
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>

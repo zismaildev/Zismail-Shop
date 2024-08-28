@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Card, Link } from '@nextui-org/react';
+import { Card, CardBody, Link } from '@nextui-org/react';
 import Image from 'next/image';
 import Head from 'next/head';
 
@@ -13,13 +13,6 @@ export default function Home() {
         const data = await res.json();
         setProducts(data.data);
     };
-
-    // const deleteProduct = async (id) => {
-    //     await fetch(`/api/products/${id}`, {
-    //         method: 'DELETE',
-    //     });
-    //     setProducts(products.filter((product) => product._id !== id));
-    // };
 
     useEffect(() => {
         fetchProducts();
@@ -38,7 +31,7 @@ export default function Home() {
                     Product
                 </h2>
                 <h4 className="text-xl">สินค้าของเรา</h4>
-                <div className='grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-5 p-5'>
+                <div className='grid grid-cols-2 gap-6 xs:grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4  p-5 mt-5'>
                     {products && products.length > 0 ? (
                         products.map((product) => (
                             <Link href={`/products/${product._id}`} key={product._id}>
@@ -53,14 +46,14 @@ export default function Home() {
                                             alt={product.name}
                                         />
                                     </div>
-                                    <div className="p-4 bg-white">
-                                        <h3 className="mb-2 text-lg font-bold text-gray-900">{product.name}</h3>
-                                        <p className="text-gray-600">{product.description}</p>
-                                        <p className="text-gray-600">{product.price} $</p>
-                                    </div>
+                                    <CardBody>
+                                        <div className="p-4 bg-white">
+                                            <h3 className="mb-2 text-lg font-bold text-gray-900">{product.name}</h3>
+                                            <p className="text-gray-600">{product.description}</p>
+                                            <p className="text-gray-600">{product.price} $</p>
+                                        </div>
+                                    </CardBody>
                                 </Card>
-                                {/* <button onClick={() => deleteProduct(product._id)}>Delete</button>
-                                <button onClick={() => router.push(`/products/edit?id=${product._id}`)}>Edit</button> */}
                             </Link>
                         ))
                     ) : (
