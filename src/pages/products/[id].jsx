@@ -2,11 +2,14 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useSession } from "next-auth/react";
+import Swal from 'sweetalert2'; // นำเข้า SweetAlert2
 
 const ProductDetail = () => {
   const router = useRouter();
   const { id } = router.query;
   const [product, setProduct] = useState(null);
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (id) {
@@ -18,6 +21,52 @@ const ProductDetail = () => {
     const res = await fetch(`/api/products/${id}`);
     const data = await res.json();
     setProduct(data.data);
+  };
+
+  const handleAddToCart = async () => {
+    if (!session) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'ต้องล็อกอินก่อน',
+        text: 'คุณต้องล็อกอินเพื่อเพิ่มสินค้าในตะกร้า',
+      });
+      return;
+    }
+
+    const userId = session.user.id; // ตรวจสอบให้แน่ใจว่า session.user.id มีค่า
+
+    try {
+      const response = await fetch('/api/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId, productId: product._id }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        Swal.fire({
+          icon: 'success',
+          title: 'เพิ่มสินค้าลงในตะกร้าแล้ว',
+          text: `${product.name} ได้ถูกเพิ่มลงในตะกร้าของคุณ`,
+        });
+      } else {
+        const errorData = await response.json();
+        Swal.fire({
+          icon: 'error',
+          title: 'เกิดข้อผิดพลาด!',
+          text: errorData.message || 'ไม่สามารถเพิ่มสินค้าในตะกร้าได้',
+        });
+      }
+    } catch (error) {
+      console.error('ไม่สามารถเพิ่มสินค้าในตะกร้า:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'เกิดข้อผิดพลาด!',
+        text: 'เกิดข้อผิดพลาดที่ไม่คาดคิด',
+      });
+    }
   };
 
   if (!product) return <div>Loading...</div>;
@@ -48,9 +97,12 @@ const ProductDetail = () => {
           <div className="text-left">
             <h2 className="mt-2 text-2xl font-bold">Product Detail</h2>
             <p className="mt-3 text-xl">{product.name}</p>
-            <h2 className="mt-8 text-2xl font-bold">Education</h2>
+            <h2 className="mt-8 text-2xl font-bold">Price</h2>
             <p className="mt-3 text-xl">Price: {product.price}</p>
-            <p className="mt-3 text-xl">description: {product.description}</p>
+            <p className="mt-3 text-xl">Description: {product.description}</p>
+            <button onClick={handleAddToCart} className="mt-5 bg-blue-500 text-white px-4 py-2 rounded">
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
