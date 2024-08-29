@@ -24,6 +24,8 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = async () => {
+    console.log(session); // ตรวจสอบ session ที่ได้รับมา
+
     if (!session) {
       Swal.fire({
         icon: 'warning',
@@ -33,7 +35,8 @@ const ProductDetail = () => {
       return;
     }
 
-    const userId = session.user.id; // ตรวจสอบให้แน่ใจว่า session.user.id มีค่า
+    const userId = session.user.id; // ตรวจสอบว่า userId ถูกต้องหรือไม่
+    console.log('User ID:', userId); // log ค่า userId เพื่อเช็คความถูกต้อง
 
     try {
       const response = await fetch('/api/cart', {
