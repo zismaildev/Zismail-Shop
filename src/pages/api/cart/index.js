@@ -1,12 +1,13 @@
+import { getSession } from 'next-auth/react';
 import connectDB from '../../../../lib/mongodb';
 import Cart from '../../../../models/cart';
-import { getSession } from 'next-auth/react';
 
 export default async function handler(req, res) {
     const session = await getSession({ req });
 
+    // ตรวจสอบว่า session มีอยู่จริง
     if (!session) {
-        return res.status(401).json({ message: 'Unauthorized' }); // ถ้าไม่มี session ให้ส่งข้อความ Unauthorized
+        return res.status(401).json({ message: 'Unauthorized' });
     }
 
     if (req.method === 'POST') {
@@ -14,12 +15,11 @@ export default async function handler(req, res) {
 
         const { userId, productId } = req.body;
 
-        // ตรวจสอบว่าผู้ใช้มีสิทธิ์ในการเข้าถึง
+        // ตรวจสอบว่า userId ตรงกับ session
         if (session.user.id !== userId) {
-            return res.status(403).json({ message: 'Forbidden' }); // ถ้า userId ไม่ตรง ให้ส่งข้อความ Forbidden
+            return res.status(403).json({ message: 'Forbidden' });
         }
 
-        // ทำการเพิ่มสินค้าในตะกร้า
         try {
             const cartItem = new Cart({ userId, productId });
             await cartItem.save();

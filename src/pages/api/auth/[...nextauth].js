@@ -12,7 +12,7 @@ export default NextAuth({
 
         const user = await User.findOne({ username: credentials.username });
         if (!user) {
-          throw new Error("No user found with the email");
+          throw new Error("No user found with the username");
         }
 
         const isMatch = await bcrypt.compare(credentials.password, user.password);
@@ -22,12 +22,12 @@ export default NextAuth({
 
         return {
           id: user._id,
-          fname:user.firstNamefirstName,
-          lname:user.lastName,
+          fname: user.firstName,
+          lname: user.lastName,
           name: user.username,
           email: user.email,
-          image: "", // or provide a default image
-          role: user.role, // Include role here
+          image: "",
+          role: user.role,
         };
       },
     }),
@@ -35,15 +35,20 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.role; // Attach role to the token
+        token.role = user.role;
+        token.sub = user.id; // Ensure id is set
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.role = token.role; // Attach role to the session object
+        session.user.id = token.sub; // Ensure the user's id is saved in the session
+        session.user.role = token.role;
       }
       return session;
     },
+  },
+  pages: {
+    signIn: '/auth/signin', // Optional: Define your own sign-in page
   },
 });
