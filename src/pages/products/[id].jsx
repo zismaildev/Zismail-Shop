@@ -23,55 +23,6 @@ const ProductDetail = () => {
     setProduct(data.data);
   };
 
-  const handleAddToCart = async () => {
-    console.log(session); // ตรวจสอบ session ที่ได้รับมา
-
-    if (!session) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'ต้องล็อกอินก่อน',
-        text: 'คุณต้องล็อกอินเพื่อเพิ่มสินค้าในตะกร้า',
-      });
-      return;
-    }
-
-    const userId = session.user.id; // ตรวจสอบว่า userId ถูกต้องหรือไม่
-    console.log('User ID:', userId); // log ค่า userId เพื่อเช็คความถูกต้อง
-
-    try {
-      const response = await fetch('/api/cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId, productId: product._id }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        Swal.fire({
-          icon: 'success',
-          title: 'เพิ่มสินค้าลงในตะกร้าแล้ว',
-          text: `${product.name} ได้ถูกเพิ่มลงในตะกร้าของคุณ`,
-        });
-      } else {
-        const errorData = await response.json();
-        Swal.fire({
-          icon: 'error',
-          title: 'เกิดข้อผิดพลาด!',
-          text: errorData.message || 'ไม่สามารถเพิ่มสินค้าในตะกร้าได้',
-        });
-      }
-    } catch (error) {
-      console.error('ไม่สามารถเพิ่มสินค้าในตะกร้า:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'เกิดข้อผิดพลาด!',
-        text: 'เกิดข้อผิดพลาดที่ไม่คาดคิด',
-      });
-    }
-  };
-
   if (!product) return <div>Loading...</div>;
 
   return (
@@ -103,9 +54,6 @@ const ProductDetail = () => {
             <h2 className="mt-8 text-2xl font-bold">Price</h2>
             <p className="mt-3 text-xl">Price: {product.price}</p>
             <p className="mt-3 text-xl">Description: {product.description}</p>
-            <button onClick={handleAddToCart} className="mt-5 bg-blue-500 text-white px-4 py-2 rounded">
-              Add to Cart
-            </button>
           </div>
         </div>
       </div>
