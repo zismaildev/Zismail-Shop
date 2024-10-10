@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 12);
   
-      // Create a new user with default role 'member'
+      // Create a new user with default role 'member' and empty cart
       const user = new User({
         username,
         firstName,
@@ -36,6 +36,7 @@ export default async function handler(req, res) {
         email,
         password: hashedPassword,
         role: 'member', // Set default role to 'member'
+        cart: [], // Initialize the cart as an empty array
       });
   
       await user.save();

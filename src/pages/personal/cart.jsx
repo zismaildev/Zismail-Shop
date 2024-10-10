@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button } from '@nextui-org/react';
 import Swal from 'sweetalert2';
-import { useSession } from 'next-auth/react';  // Ensure you are importing this correctly
+import { useSession } from 'next-auth/react'; 
 
 const Cart = () => {
     const [products, setProducts] = useState([]);
     const [userId, setUserId] = useState(null);
     const router = useRouter();
-    const { data: session } = useSession();  // Make sure this is imported and used correctly
+    const { data: session } = useSession();
 
     useEffect(() => {
         if (session?.user?.id) {
@@ -27,6 +27,9 @@ const Cart = () => {
     const fetchCartItems = async (userId) => {
         try {
             const res = await fetch(`/api/cart?userId=${userId}`);
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
             const data = await res.json();
             if (data && Array.isArray(data.products)) {
                 setProducts(data.products);
@@ -37,10 +40,6 @@ const Cart = () => {
             console.error('Error fetching cart items:', error);
             setProducts([]);
         }
-    };
-
-    const handleCreateProduct = () => {
-        router.push('/products/create');
     };
 
     const handleEditProduct = (id) => {
@@ -63,11 +62,7 @@ const Cart = () => {
                     method: 'DELETE',
                 });
                 setProducts(products.filter((product) => product._id !== id));
-                Swal.fire(
-                    'Deleted!',
-                    'Your product has been deleted.',
-                    'success'
-                );
+                Swal.fire('Deleted!', 'Your product has been deleted.', 'success');
             }
         } catch (error) {
             console.error('Error deleting product:', error);
@@ -96,29 +91,34 @@ const Cart = () => {
                             <TableColumn>Actions</TableColumn>
                         </TableHeader>
                         <TableBody>
-                            {products.map((product) => (
-                                <TableRow key={product._id}>
-                                    <TableCell>
-                                        <Image
-                                            src={product.image}
-                                            alt={product.name}
-                                            height={100}
-                                            width={95}
-                                            className="h-25 w-20 object-cover" />
-                                    </TableCell>
-                                    <TableCell>{product.name}</TableCell>
-                                    <TableCell>{product.price}</TableCell>
-                                    <TableCell>
-                                        <Button auto size="small" onClick={() => handleEditProduct(product._id)}>Edit</Button>
-                                        <Button auto size="small" onClick={() => handleDeleteProduct(product._id)} color="error">Delete</Button>
+                            {products.length > 0 ? (
+                                products.map((product) => (
+                                    <TableRow key={product._id}>
+                                        <TableCell>
+                                            <Image
+                                                src={product.image}
+                                                alt={product.name}
+                                                height={100}
+                                                width={95}
+                                                className="h-25 w-20 object-cover" />
+                                        </TableCell>
+                                        <TableCell>{product.name}</TableCell>
+                                        <TableCell>{product.price}</TableCell>
+                                        <TableCell>
+                                            <Button auto size="small" onClick={() => handleEditProduct(product._id)}>Edit</Button>
+                                            <Button auto size="small" onClick={() => handleDeleteProduct(product._id)} color="error">Delete</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={4} className="text-center">
+                                        <p>ตะกร้าว่างเปล่า</p>
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                            )}
                         </TableBody>
                     </Table>
-                    <div className='mt-3'>
-                        <Button auto size="small" onClick={handleCreateProduct} color="primary">Create</Button>
-                    </div>
                 </div>
             </div>
         </div>

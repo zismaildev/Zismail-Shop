@@ -1,5 +1,17 @@
-// models/user.js
 import mongoose from 'mongoose';
+
+const CartItemSchema = new mongoose.Schema({
+  productId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
+});
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -26,8 +38,12 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'developer', 'member'], // Define possible roles
-    default: 'member', // Set default role to 'member'
+    enum: ['admin', 'developer', 'member'],
+    default: 'member',
+  },
+  cart: {
+    type: [CartItemSchema], // เปลี่ยนเป็นใช้ CartItemSchema
+    default: [],
   },
 });
 
