@@ -1,10 +1,32 @@
 import { Avatar, Card } from "@nextui-org/react";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Profile() {
     const { data: session, status } = useSession();
+    const [profilePicture, setProfilePicture] = useState(session?.user?.profilePicture || '');
+
+    const handleProfilePictureChange = async (e) => {
+        try {
+            const formData = new FormData();
+            formData.append('profilePicture', e.target.files[0]);
+
+            const response = await fetch('/api/uploadProfilePicture', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to upload profile picture');
+            }
+
+            const data = await response.json();
+            setProfilePicture(data.profilePicture);
+        } catch (error) {
+            console.error('Error uploading profile picture:', error);
+        }
+    };
 
     return (
         <div>
@@ -31,8 +53,9 @@ export default function Profile() {
                                         className="w-50 h-50 text-large transition-transform"
                                         isBordered
                                         name={session.user.name}
-                                        src={session.user.image}
+                                        src={profilePicture || session.user.image}
                                     />
+                                    <input type="file" onChange={handleProfilePictureChange} className="mt-4" />
                                 </div>
                                 <div className="mt-3 md:text-right">
                                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">

@@ -55,8 +55,8 @@ export default function Home() {
               className="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
               src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt="App screenshot"
-              width={1824}
-              height={1080}
+              fill
+              sizes="(max-width: 1024px) 100vw, 1024px"
             />
           </div>
         </section>
@@ -104,7 +104,8 @@ export default function Home() {
               className="object-cover w-full h-full rounded-lg shadow-lg"
               src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt="Gallery image"
-              layout="fill"
+              fill
+              sizes="(max-width: 1024px) 100vw, 1024px"
             />
           </div>
         </div>

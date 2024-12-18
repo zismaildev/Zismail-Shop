@@ -1,6 +1,6 @@
-import React from 'react'
-import NavbarComp from './navbar'
-import FooterComp from './footer'
+import React from 'react';
+import NavbarComp from './navbar';
+import FooterComp from './footer';
 
 export default function Layout({ children }) {
     return (
@@ -9,5 +9,5 @@ export default function Layout({ children }) {
             {children}
             <FooterComp />
         </div>
-    )
+    );
 }

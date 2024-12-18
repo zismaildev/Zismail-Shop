@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     Navbar,
     NavbarBrand,
@@ -16,12 +16,11 @@ import {
     Button
 } from "@nextui-org/react";
 import { useSession, signOut } from "next-auth/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 
 export default function NavbarComp() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { data: session } = useSession();
+    const [profilePicture, setProfilePicture] = useState(session?.user?.profilePicture || '');
 
     const menuItems = [
         { label: "Product", url: "/products/products" },
@@ -29,8 +28,6 @@ export default function NavbarComp() {
         { label: "Docs", url: "/contents/docs" },
     ];
 
-
-    // Helper function to check if user has admin or developer role
     const isAuthorized = session?.user?.role === "admin" || session?.user?.role === "developer";
 
     return (
@@ -66,7 +63,6 @@ export default function NavbarComp() {
 
             <NavbarContent as="div" justify="end">
                 {session ? (
-
                     <Dropdown placement="bottom-end">
                         <DropdownTrigger>
                             <Avatar
@@ -76,7 +72,7 @@ export default function NavbarComp() {
                                 color="secondary"
                                 name="Avatar"
                                 size="sm"
-                                src={session.user.image || "https://i.pravatar.cc/150?u=a042581f4e29026704d"}
+                                src={profilePicture || "https://i.pravatar.cc/150?u=a042581f4e29026704d"}
                             />
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -87,7 +83,6 @@ export default function NavbarComp() {
                             {isAuthorized && (
                                 <DropdownItem href="/admin/dashboard">Dashboard</DropdownItem>
                             )}
-                            <DropdownItem href="/personal/cart">Cart</DropdownItem>
                             <DropdownItem key="payment">Payment</DropdownItem>
                             <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
                             <DropdownItem key="logout" color="danger" onClick={() => signOut()}>

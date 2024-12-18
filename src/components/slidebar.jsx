@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineMenu, AiOutlineHome, AiOutlineDatabase, AiOutlineUser, AiOutlineSetting, AiOutlineMessage } from 'react-icons/ai';
 import Link from 'next/link';
 
-export default function Layout({ children }) {
+export default function Slidebar({ children }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleSidebar = () => {

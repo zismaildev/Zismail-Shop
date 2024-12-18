@@ -36,10 +36,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
   role: {
     type: String,
     enum: ['admin', 'developer', 'member'],
     default: 'member',
+  },
+  profilePicture: {
+    type: String,
+    default: '', // Default to an empty string if no profile picture is set
   },
   cart: {
     type: [CartItemSchema], // เปลี่ยนเป็นใช้ CartItemSchema

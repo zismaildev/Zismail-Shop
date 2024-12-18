@@ -1,6 +1,7 @@
 import connectDB from '../../../../lib/mongodb';
 import User from '../../../../models/user';
 import bcrypt from 'bcryptjs';
+import { getDatabaseConnection } from '../../../utils/database';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
