@@ -1,7 +1,6 @@
 import nodemailer from 'nodemailer';
 import { MongoClient } from 'mongodb';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 
 const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
