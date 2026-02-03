@@ -11,11 +11,33 @@ export default async function handler(req, res) {
     if (!username || !firstName || !lastName || !email || !password) {
       return res.status(400).json({ message: 'Missing fields' });
     }
+
+    // Ensure all fields are strings to prevent NoSQL injection and other type-based issues
+    if (
+      typeof username !== 'string' ||
+      typeof firstName !== 'string' ||
+      typeof lastName !== 'string' ||
+      typeof email !== 'string' ||
+      typeof password !== 'string'
+    ) {
+      return res.status(400).json({ message: 'Invalid field types' });
+    }
+
+    // Optionally, trim to avoid purely whitespace values
+    if (
+      username.trim() === '' ||
+      firstName.trim() === '' ||
+      lastName.trim() === '' ||
+      email.trim() === '' ||
+      password.trim() === ''
+    ) {
+      return res.status(400).json({ message: 'Fields cannot be empty' });
+    }
   
     try {
       // Check if the user already exists by email or username
-      const existingEmailUser = await User.findOne({ email });
-      const existingUsernameUser = await User.findOne({ username });
+      const existingEmailUser = await User.findOne({ email: { $eq: email } });
+      const existingUsernameUser = await User.findOne({ username: { $eq: username } });
 
       if (existingEmailUser) {
         return res.status(400).json({ message: 'Email already in use' });
