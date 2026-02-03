@@ -34,7 +34,8 @@ export async function sendResetPasswordEmail(identifier) {
 export async function resetUserPassword(identifier, newPassword) {
   const db = await getDatabaseConnection();
   const hashedPassword = await bcrypt.hash(newPassword, 10);
-  await db.collection('users').updateOne({ email: identifier }, { $set: { password: hashedPassword } });
+  const email = String(identifier);
+  await db.collection('users').updateOne({ email }, { $set: { password: hashedPassword } });
 }
 
 export function verifyToken(token) {
