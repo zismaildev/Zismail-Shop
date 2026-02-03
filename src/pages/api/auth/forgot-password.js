@@ -9,6 +9,11 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { email } = req.body;
 
+    // Validate email to ensure it is a safe, literal value
+    if (typeof email !== "string" || !email.trim()) {
+      return res.status(400).json({ message: "Invalid email" });
+    }
+
     try {
       const user = await User.findOne({ email });
       if (!user) {
