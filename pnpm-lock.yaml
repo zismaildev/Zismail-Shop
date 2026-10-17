@@ -43,13 +43,13 @@ importers:
         version: 16.3.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-auth:
         specifier: ^4.24.15
-        version: 4.24.15(next@16.3.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nodemailer@9.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.24.15(next@16.3.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nodemailer@10.0.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-connect:
         specifier: ^1.0.0
         version: 1.0.0
       nodemailer:
-        specifier: ^9.1.1
-        version: 9.1.1
+        specifier: ^10.0.9
+        version: 10.0.13
       react:
         specifier: ^18
         version: 18.3.1
@@ -2888,9 +2888,9 @@ packages:
       encoding:
         optional: true
 
-  nodemailer@9.1.1:
-    resolution: {integrity: sha512-izw9mVKFix6YSnC9eLgV6g1opl9DUlRio9ZNcq+Wu9Ujn2UwF+8Nl0B8nz22kEC+CTZCvinkxwJ0DeFbb6NwcQ==}
-    engines: {node: '>=6.0.0'}
+  nodemailer@10.0.13:
+    resolution: {integrity: sha512-SzG86OlvcW/NNhUFC6uROMwRTL4n7MswfQqC/T8mhkmnY1YVa23zUEMYi4ijSeXSl9GLz9ZeTJDUatEDuY5FeQ==}
+    engines: {node: '>=20.0.0'}
 
   nopt@5.0.0:
     resolution: {integrity: sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==}
@@ -7375,7 +7375,7 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  next-auth@4.24.15(next@16.3.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nodemailer@9.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next-auth@4.24.15(next@16.3.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nodemailer@10.0.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.29.7
       '@panva/hkdf': 1.2.1
@@ -7390,7 +7390,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       uuid: 11.1.1
     optionalDependencies:
-      nodemailer: 9.1.1
+      nodemailer: 10.0.13
 
   next-connect@1.0.0:
     dependencies:
@@ -7428,7 +7428,7 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  nodemailer@9.1.1: {}
+  nodemailer@10.0.13: {}
 
   nopt@5.0.0:
     dependencies:
