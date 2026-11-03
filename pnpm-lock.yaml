@@ -43,13 +43,13 @@ importers:
         version: 16.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-auth:
         specifier: ^4.24.15
-        version: 4.24.15(next@16.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nodemailer@10.0.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.24.15(next@16.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nodemailer@10.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-connect:
         specifier: ^1.0.0
         version: 1.0.0
       nodemailer:
-        specifier: ^10.0.9
-        version: 10.0.13
+        specifier: ^10.1.4
+        version: 10.1.4
       react:
         specifier: ^18
         version: 18.3.1
@@ -2892,8 +2892,8 @@ packages:
       encoding:
         optional: true
 
-  nodemailer@10.0.13:
-    resolution: {integrity: sha512-SzG86OlvcW/NNhUFC6uROMwRTL4n7MswfQqC/T8mhkmnY1YVa23zUEMYi4ijSeXSl9GLz9ZeTJDUatEDuY5FeQ==}
+  nodemailer@10.1.4:
+    resolution: {integrity: sha512-EsMnOR2oRv4LGnWvHgcVYkkQ4O2j8KO4WTw6l+PHR4sOXo8SAgIraxtEnGDmotjbhv0hDsu3IuDIFZm8iXwO4A==}
     engines: {node: '>=20.0.0'}
 
   nopt@5.0.0:
@@ -7384,7 +7384,7 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  next-auth@4.24.15(next@16.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nodemailer@10.0.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next-auth@4.24.15(next@16.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nodemailer@10.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.29.7
       '@panva/hkdf': 1.2.1
@@ -7399,7 +7399,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       uuid: 11.1.1
     optionalDependencies:
-      nodemailer: 10.0.13
+      nodemailer: 10.1.4
 
   next-connect@1.0.0:
     dependencies:
@@ -7437,7 +7437,7 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  nodemailer@10.0.13: {}
+  nodemailer@10.1.4: {}
 
   nopt@5.0.0:
     dependencies:
